@@ -84,26 +84,33 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const [isDark, setIsDark] = useState(true);
+  // Initialise theme: stored pref → system pref → dark default
+  const getInitialTheme = () => {
+    const stored = localStorage.getItem('portfolio-theme');
+    if (stored) return stored === 'dark';
+    return !window.matchMedia('(prefers-color-scheme: light)').matches;
+  };
+
+  const [isDark, setIsDark] = useState(() => {
+    // During SSR / first render, default to dark; resolved in effect
+    return true;
+  });
 
   useEffect(() => {
-    const stored = localStorage.getItem('portfolio-theme');
-    if (stored === 'light') {
-      setIsDark(false);
+    const dark = getInitialTheme();
+    setIsDark(dark);
+    if (!dark) {
       document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
     }
   }, []);
 
   const toggleTheme = () => {
     setIsDark((prev) => {
       const next = !prev;
-      if (next) {
-        document.body.classList.remove('light');
-        localStorage.setItem('portfolio-theme', 'dark');
-      } else {
-        document.body.classList.add('light');
-        localStorage.setItem('portfolio-theme', 'light');
-      }
+      document.body.classList.toggle('light', !next);
+      localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
       return next;
     });
   };

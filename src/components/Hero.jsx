@@ -1,22 +1,18 @@
+/**
+ * Hero Section
+ * ─────────────────────────────────────────────────────────────
+ * Updated: Two-column layout on desktop (text left, photo right)
+ * Photo: professional headshot with gradient glow ring
+ * Mobile: stacks vertically, photo above text, properly sized
+ */
+
 import { motion } from 'framer-motion';
 import { useTypingEffect } from '../hooks/useAnimations';
 import { HERO_TYPING_TEXTS, HERO_DATA } from '../data/portfolioData';
 
-const BrainIcon = () => (
-  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-    <path d="M9.5 2a2.5 2.5 0 0 1 5 0v14.5a2.5 2.5 0 0 1-5 0V2z" opacity="0"/>
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/>
-  </svg>
-);
-
-const ArrowDown = () => (
-  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-    <path d="M12 5v14M5 12l7 7 7-7"/>
-  </svg>
-);
-
+// ── Icons ────────────────────────────────────────
 const DownloadIcon = () => (
-  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
     <polyline points="7 10 12 15 17 10"/>
     <line x1="12" y1="15" x2="12" y2="3"/>
@@ -24,45 +20,174 @@ const DownloadIcon = () => (
 );
 
 const EyeIcon = () => (
-  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
     <circle cx="12" cy="12" r="3"/>
   </svg>
 );
 
 const MailIcon = () => (
-  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
     <polyline points="22,6 12,13 2,6"/>
   </svg>
 );
 
 const FolderIcon = () => (
-  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
   </svg>
 );
 
+const ArrowDown = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 5v14M5 12l7 7 7-7"/>
+  </svg>
+);
+
+// ── Animation variants ───────────────────────────
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] } },
+  hidden: { opacity: 0, y: 28 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] } },
 };
 
-// Floating AI/ML keyword nodes for visual flair
-const AI_KEYWORDS = [
-  { text: 'Neural Networks', x: '8%', y: '20%', delay: 0 },
-  { text: 'Deep Learning', x: '82%', y: '15%', delay: 0.3 },
-  { text: 'Python', x: '5%', y: '70%', delay: 0.6 },
-  { text: 'Scikit-learn', x: '80%', y: '72%', delay: 0.9 },
-  { text: 'Data Science', x: '15%', y: '88%', delay: 1.2 },
-  { text: 'TensorFlow', x: '70%', y: '88%', delay: 0.5 },
-];
+const photoVariants = {
+  hidden: { opacity: 0, x: 40, scale: 0.92 },
+  show:   { opacity: 1, x: 0,  scale: 1, transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1], delay: 0.3 } },
+};
 
+// ── Hero Image Component ─────────────────────────
+function HeroPhoto() {
+  return (
+    <motion.div
+      variants={photoVariants}
+      initial="hidden"
+      animate="show"
+      style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}
+      className="hero-photo-wrapper"
+    >
+      {/* Outer glow ring */}
+      <div style={{
+        position: 'absolute',
+        inset: '-4px',
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, #2563eb 0%, #06b6d4 50%, #8b5cf6 100%)',
+        opacity: 0.7,
+        filter: 'blur(2px)',
+        animation: 'spin-slow 8s linear infinite',
+        zIndex: 0,
+      }} aria-hidden="true" />
+
+      {/* Outer ring border */}
+      <div style={{
+        position: 'absolute',
+        inset: '0',
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, #2563eb, #06b6d4, #8b5cf6)',
+        zIndex: 1,
+      }} aria-hidden="true" />
+
+      {/* Inner white circle (photo container) */}
+      <div style={{
+        position: 'relative',
+        zIndex: 2,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        background: 'linear-gradient(160deg, rgba(37,99,235,0.15) 0%, rgba(6,182,212,0.1) 100%)',
+        margin: '3px',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+      }}
+      className="hero-photo-inner"
+      >
+        <img
+          src="/asad-hero.png"
+          alt="Asad Ali – Aspiring AI/ML Engineer"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          style={{
+            display: 'block',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            width: '100%',
+            height: '100%',
+          }}
+          className="hero-photo-img"
+        />
+      </div>
+
+      {/* Floating badge – "Available" */}
+      <motion.div
+        animate={{ y: [0, -5, 0] }}
+        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          bottom: '6%',
+          right: '-2%',
+          background: 'rgba(22, 163, 74, 0.15)',
+          border: '1px solid rgba(22,163,74,0.35)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '10px',
+          padding: '0.4rem 0.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          fontSize: '0.7rem',
+          fontWeight: '700',
+          color: '#4ade80',
+          zIndex: 3,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <span style={{
+          width: '7px', height: '7px', borderRadius: '50%',
+          background: '#22c55e',
+          boxShadow: '0 0 6px #22c55e',
+          animation: 'pulse-glow-green 2s ease-in-out infinite',
+        }} />
+        Available
+      </motion.div>
+
+      {/* Floating tech badge */}
+      <motion.div
+        animate={{ y: [0, 5, 0] }}
+        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 0.5 }}
+        style={{
+          position: 'absolute',
+          top: '8%',
+          left: '-4%',
+          background: 'rgba(37,99,235,0.15)',
+          border: '1px solid rgba(37,99,235,0.3)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '10px',
+          padding: '0.4rem 0.75rem',
+          fontSize: '0.68rem',
+          fontWeight: '700',
+          color: 'var(--neon-blue)',
+          zIndex: 3,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        🤖 AI/ML Engineer
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ── Main Component ───────────────────────────────
 export default function Hero() {
   const typedText = useTypingEffect(HERO_TYPING_TEXTS, 70, 2200);
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -81,56 +206,25 @@ export default function Hero() {
       }}
     >
       {/* Animated background */}
-      <div className="hero-bg">
+      <div className="hero-bg" aria-hidden="true">
         <div className="hero-orb hero-orb-1" />
         <div className="hero-orb hero-orb-2" />
         <div className="hero-orb hero-orb-3" />
         <div className="grid-bg" />
       </div>
 
-      {/* Floating AI keywords */}
-      {AI_KEYWORDS.map((kw) => (
+      {/* ── Two-column layout container ── */}
+      <div className="hero-inner" style={{ position: 'relative', zIndex: 1 }}>
+
+        {/* ── LEFT: Text content ── */}
         <motion.div
-          key={kw.text}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.35, scale: 1 }}
-          transition={{ delay: kw.delay + 1.2, duration: 0.8 }}
-          style={{
-            position: 'absolute',
-            left: kw.x,
-            top: kw.y,
-            padding: '0.3rem 0.75rem',
-            borderRadius: '9999px',
-            border: '1px solid rgba(37, 99, 235, 0.3)',
-            background: 'rgba(37, 99, 235, 0.06)',
-            fontSize: '0.7rem',
-            fontWeight: '600',
-            color: 'rgba(96, 165, 250, 0.7)',
-            pointerEvents: 'none',
-            whiteSpace: 'nowrap',
-            display: 'none',
-          }}
-          className="hero-keyword"
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="hero-text-col"
         >
-          {kw.text}
-        </motion.div>
-      ))}
-
-      {/* Content */}
-      <div
-        style={{
-          maxWidth: '860px',
-          margin: '0 auto',
-          padding: '0 1.5rem',
-          textAlign: 'center',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <motion.div variants={container} initial="hidden" animate="show">
-
           {/* Status badge */}
-          <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.75rem' }}>
+          <motion.div variants={item} style={{ marginBottom: '1.5rem' }}>
             <span className="section-badge animate-pulse-glow" style={{ gap: '0.5rem' }}>
               <span style={{
                 width: '7px', height: '7px', borderRadius: '50%',
@@ -146,7 +240,7 @@ export default function Hero() {
           {/* Name */}
           <motion.div variants={item}>
             <h1 style={{
-              fontSize: 'clamp(2.6rem, 8vw, 5rem)',
+              fontSize: 'clamp(2.2rem, 6vw, 4.2rem)',
               fontWeight: '900',
               lineHeight: '1.05',
               marginBottom: '0.75rem',
@@ -159,12 +253,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Title */}
-          <motion.div variants={item} style={{ marginBottom: '1rem' }}>
+          <motion.div variants={item} style={{ marginBottom: '0.75rem' }}>
             <div style={{
-              fontSize: 'clamp(1rem, 3vw, 1.25rem)',
+              fontSize: 'clamp(0.85rem, 2.2vw, 1rem)',
               fontWeight: '600',
               color: 'var(--text-secondary)',
-              letterSpacing: '0.04em',
+              letterSpacing: '0.06em',
               textTransform: 'uppercase',
             }}>
               {HERO_DATA.title}
@@ -172,9 +266,9 @@ export default function Hero() {
           </motion.div>
 
           {/* Typing effect */}
-          <motion.div variants={item} style={{ marginBottom: '1.5rem' }}>
+          <motion.div variants={item} style={{ marginBottom: '1.25rem' }}>
             <p style={{
-              fontSize: 'clamp(1.1rem, 3.5vw, 1.55rem)',
+              fontSize: 'clamp(1rem, 3vw, 1.4rem)',
               color: 'var(--text-secondary)',
               fontWeight: '400',
               lineHeight: '1.5',
@@ -188,29 +282,15 @@ export default function Hero() {
           </motion.div>
 
           {/* Tagline */}
-          <motion.div variants={item} style={{ marginBottom: '1.5rem' }}>
+          <motion.div variants={item} style={{ marginBottom: '2rem' }}>
             <p style={{
-              fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)',
+              fontSize: 'clamp(0.875rem, 2vw, 1rem)',
               color: 'var(--text-secondary)',
-              lineHeight: '1.7',
-              maxWidth: '680px',
-              margin: '0 auto',
+              lineHeight: '1.75',
+              maxWidth: '520px',
               fontWeight: '400',
             }}>
               {HERO_DATA.tagline}
-            </p>
-          </motion.div>
-
-          {/* Summary */}
-          <motion.div variants={item} style={{ marginBottom: '2.5rem' }}>
-            <p style={{
-              fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
-              color: 'var(--text-muted)',
-              lineHeight: '1.8',
-              maxWidth: '640px',
-              margin: '0 auto',
-            }}>
-              {HERO_DATA.summary}
             </p>
           </motion.div>
 
@@ -219,10 +299,9 @@ export default function Hero() {
             variants={item}
             style={{
               display: 'flex',
-              gap: '1rem',
-              justifyContent: 'center',
+              gap: '0.75rem',
               flexWrap: 'wrap',
-              marginBottom: '3.5rem',
+              marginBottom: '2.5rem',
             }}
           >
             <button
@@ -272,17 +351,16 @@ export default function Hero() {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '1rem',
-              maxWidth: '600px',
-              margin: '0 auto',
+              gap: '0.75rem',
+              maxWidth: '480px',
             }}
             className="hero-stats-grid"
           >
             {[
-              { value: '2+', label: 'ML Projects' },
-              { value: '4mo', label: 'Internship' },
-              { value: '85%+', label: 'Accuracy' },
-              { value: '3.75', label: 'CGPA' },
+              { value: '2+',   label: 'ML Projects' },
+              { value: '4mo',  label: 'Internship'  },
+              { value: '85%+', label: 'Accuracy'    },
+              { value: '3.75', label: 'CGPA'        },
             ].map((stat) => (
               <div key={stat.label} className="hero-stat-card">
                 <div className="hero-stat-value">{stat.value}</div>
@@ -292,38 +370,43 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.button
-          onClick={() => scrollTo('about')}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-          style={{
-            position: 'absolute',
-            bottom: '-90px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--text-muted)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem',
-            fontSize: '0.72rem',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}
-          whileHover={{ color: 'var(--accent-cyan)', y: -2 }}
-          aria-label="Scroll down"
-        >
-          <span>Scroll</span>
-          <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-            <ArrowDown />
-          </motion.div>
-        </motion.button>
+        {/* ── RIGHT: Photo ── */}
+        <div className="hero-photo-col">
+          <HeroPhoto />
+        </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        onClick={() => scrollTo('about')}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        style={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--text-muted)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontSize: '0.72rem',
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+        }}
+        whileHover={{ color: 'var(--accent-cyan)', y: -2 }}
+        aria-label="Scroll down to About section"
+      >
+        <span>Scroll</span>
+        <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+          <ArrowDown />
+        </motion.div>
+      </motion.button>
     </section>
   );
 }
