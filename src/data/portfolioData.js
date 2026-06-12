@@ -154,11 +154,14 @@ export const CONTACT_INFO = {
   linkedinUrl: 'https://linkedin.com/in/asadrealone',
   github: 'github.com/asadrealone',
   githubUrl: 'https://github.com/asadrealone',
+  instagram: 'instagram.com/asadrealone',
+  instagramUrl: 'https://instagram.com/asadrealone',
 };
 
 export const SOCIAL_LINKS = [
   { label: 'GitHub', href: 'https://github.com/asadrealone', icon: 'github' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/asadrealone', icon: 'linkedin' },
+  { label: 'Instagram', href: 'https://instagram.com/asadrealone', icon: 'instagram' },
   { label: 'Email', href: 'mailto:asadrealone@gmail.com', icon: 'email' },
   { label: 'Phone', href: 'tel:+923077546633', icon: 'phone' },
 ];

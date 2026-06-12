@@ -113,7 +113,7 @@ function HeroPhoto() {
       className="hero-photo-inner"
       >
         <img
-          src="/asad-hero.png"
+          src="/asad-hero.jpg"
           alt="Asad Ali – Aspiring AI/ML Engineer"
           loading="eager"
           decoding="async"
@@ -121,7 +121,7 @@ function HeroPhoto() {
           style={{
             display: 'block',
             objectFit: 'cover',
-            objectPosition: 'center top',
+            objectPosition: 'center 10%',
             width: '100%',
             height: '100%',
           }}
