@@ -113,7 +113,7 @@ function HeroPhoto() {
       className="hero-photo-inner"
       >
         <img
-          src="/asad-hero.jpg"
+          src="/Asad Pic.jpeg"
           alt="Asad Ali – Aspiring AI/ML Engineer"
           loading="eager"
           decoding="async"
@@ -121,7 +121,7 @@ function HeroPhoto() {
           style={{
             display: 'block',
             objectFit: 'cover',
-            objectPosition: 'center 10%',
+            objectPosition: 'center 5%',
             width: '100%',
             height: '100%',
           }}
@@ -135,8 +135,8 @@ function HeroPhoto() {
         transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
         style={{
           position: 'absolute',
-          bottom: '6%',
-          right: '-2%',
+          bottom: '4%',
+          right: '0%',
           background: 'rgba(22, 163, 74, 0.15)',
           border: '1px solid rgba(22,163,74,0.35)',
           backdropFilter: 'blur(12px)',
@@ -161,28 +161,6 @@ function HeroPhoto() {
         Available
       </motion.div>
 
-      {/* Floating tech badge */}
-      <motion.div
-        animate={{ y: [0, 5, 0] }}
-        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 0.5 }}
-        style={{
-          position: 'absolute',
-          top: '8%',
-          left: '-4%',
-          background: 'rgba(37,99,235,0.15)',
-          border: '1px solid rgba(37,99,235,0.3)',
-          backdropFilter: 'blur(12px)',
-          borderRadius: '10px',
-          padding: '0.4rem 0.75rem',
-          fontSize: '0.68rem',
-          fontWeight: '700',
-          color: 'var(--neon-blue)',
-          zIndex: 3,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        🤖 AI/ML Engineer
-      </motion.div>
     </motion.div>
   );
 }
