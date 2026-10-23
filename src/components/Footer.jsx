@@ -69,7 +69,7 @@ export default function Footer() {
                 borderRadius: '50%', background: '#22c55e',
                 boxShadow: '0 0 6px #22c55e',
               }} />
-              Open to Opportunities
+              Open to Opportunitie
             </div>
           </div>
 
