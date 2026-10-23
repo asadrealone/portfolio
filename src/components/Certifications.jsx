@@ -190,6 +190,7 @@ export default function Certifications() {
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.6' }}>
               I am actively pursuing additional certifications in Deep Learning, NLP, and MLOps
               to stay at the forefront of the AI/ML field.
+              I have started an Internship in Netsol Lahore.
             </p>
           </div>
         </motion.div>
